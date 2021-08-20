@@ -6,7 +6,7 @@
 /*   By: wjuneo-f <wjuneo-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/20 12:31:24 by wjuneo-f          #+#    #+#             */
-/*   Updated: 2021/08/20 15:24:14 by wjuneo-f         ###   ########.fr       */
+/*   Updated: 2021/08/20 16:31:44 by wjuneo-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,13 @@ static char	*correct_line(char **buffer_backup)
 static char	*treat_line(int fd, char **buffer, char **backup_buffer)
 {
 	char	*free_temp;
-	while(read(fd, *buffer, BUFFER_SIZE))
+	int		joao;
+
+	joao = fd;
+	while(joao)
 	{
-		// *buffer[ft_strlen(*buffer) + 1] = '\0';
+		joao = read(fd, *buffer, BUFFER_SIZE);
+		*buffer[joao] = '\0';
 		free_temp = *backup_buffer;
 		*backup_buffer = ft_strjoin(*backup_buffer, *buffer);
 		if (ft_strchr(*backup_buffer, '\n'))
@@ -82,7 +86,7 @@ static char	*add_line(int fd, char **buffer, char **backup_buffer)
 	if (ft_strchr(*backup_buffer, '\n'))
 		return (correct_line(backup_buffer));
 	result_of_reading = read(fd, *buffer, BUFFER_SIZE);
-	// *buffer[ft_strlen(*buffer) + 1] = '\0';
+//	*buffer[result_of_reading] = '\0';
 	if (result_of_reading <= 0)
 		return (NULL);
 	if (result_of_reading)
@@ -106,6 +110,8 @@ char	*get_next_line(int fd)
 		buffer_backup = ft_strdup("");
 	line = add_line(fd, &buffer, &buffer_backup);
 	free_ptr(&buffer);
+	if (!line && !*buffer_backup)
+		free_ptr(&buffer_backup);
 	return (line);
 }
 
