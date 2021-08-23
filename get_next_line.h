@@ -6,7 +6,7 @@
 /*   By: wjuneo-f <wjuneo-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 01:24:24 by wjuneo-f          #+#    #+#             */
-/*   Updated: 2021/08/19 22:25:20 by wjuneo-f         ###   ########.fr       */
+/*   Updated: 2021/08/20 16:50:00 by wjuneo-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 20
+#  define BUFFER_SIZE 10
 # endif
 
 /**
@@ -85,5 +85,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
  * or error occurred.
  */
 char	*get_next_line(int fd);
+
+void	*ft_memset(void *str, int c, size_t n);
+
+void	*ft_calloc(size_t nelem, size_t size);
 
 #endif
