@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wjuneo-f <wjuneo-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/23 10:15:21 by wjuneo-f          #+#    #+#             */
-/*   Updated: 2021/08/25 08:59:01 by wjuneo-f         ###   ########.fr       */
+/*   Created: 2021/08/25 07:08:59 by wjuneo-f          #+#    #+#             */
+/*   Updated: 2021/08/25 08:59:06 by wjuneo-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -86,18 +86,18 @@ static char	*add_line(int fd, char **buffer, char **backup_buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*backup_buffer;
+	static char	*backup_buffer[OPEN_MAX];
 	char		*line;
 	char		*buffer;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > OPEN_MAX)
 		return (NULL);
 	buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
-	if (!backup_buffer)
-		backup_buffer = ft_strdup("");
-	line = add_line(fd, &buffer, &backup_buffer);
+	if (!backup_buffer[fd])
+		backup_buffer[fd] = ft_strdup("");
+	line = add_line(fd, &buffer, &backup_buffer[fd]);
 	free_ptr(&buffer);
 	return (line);
 }

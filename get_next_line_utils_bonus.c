@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wjuneo-f <wjuneo-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/19 12:25:36 by wjuneo-f          #+#    #+#             */
-/*   Updated: 2021/08/25 07:12:26 by wjuneo-f         ###   ########.fr       */
+/*   Created: 2021/08/25 07:09:14 by wjuneo-f          #+#    #+#             */
+/*   Updated: 2021/08/25 08:16:23 by wjuneo-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,20 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup(const char *str)
 {
 	size_t	i;
-	char	*result;
+	size_t	len;
+	char	*s;
 
-	result = malloc(sizeof(char) * (ft_strlen(s) + 1));
-	if (!result)
+	len = ft_strlen(str) + 1;
+	s = (char *)malloc(sizeof(char) * len);
+	if (s == NULL)
 		return (NULL);
-	i = 0;
-	while (s[i])
-	{
-		result[i] = s[i];
-		i++;
-	}
-	result[i] = '\0';
-	return (result);
+	i = -1;
+	while (++i < len)
+		s[i] = str[i];
+	return (s);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
