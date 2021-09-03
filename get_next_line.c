@@ -6,7 +6,7 @@
 /*   By: wjuneo-f <wjuneo-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 10:15:21 by wjuneo-f          #+#    #+#             */
-/*   Updated: 2021/08/25 08:59:01 by wjuneo-f         ###   ########.fr       */
+/*   Updated: 2021/09/03 11:03:04 by wjuneo-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ static char	*add_line(int fd, char **buffer, char **backup_buffer)
 	char	*temp_free;
 	int		result_of_reading;
 
-	if (ft_strchr(*backup_buffer, '\n'))
-		return (correct_line(backup_buffer));
 	result_of_reading = treat_line(fd, buffer, backup_buffer);
 	if (result_of_reading <= 0 && !**backup_buffer)
 	{
@@ -75,13 +73,9 @@ static char	*add_line(int fd, char **buffer, char **backup_buffer)
 	}
 	if (ft_strchr(*backup_buffer, '\n'))
 		return (correct_line(backup_buffer));
-	if (!ft_strchr(*backup_buffer, '\n') && **backup_buffer)
-	{
-		temp_free = ft_strdup(*backup_buffer);
-		free_ptr(backup_buffer);
-		return (temp_free);
-	}
-	return (NULL);
+	temp_free = ft_strdup(*backup_buffer);
+	free_ptr(backup_buffer);
+	return (temp_free);
 }
 
 char	*get_next_line(int fd)
